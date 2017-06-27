@@ -21,8 +21,6 @@
 #include "lwip/sockets.h"
 #include "app_sockets.h"
 
-#include "Rtp_Exemple_Receive.h"
-
 static volatile uint8_t stackInitialized = 0;
 SemaphoreHandle_t Netif_LinkSemaphore = NULL;
 /* Ethernet link thread Argument */
@@ -53,6 +51,7 @@ static void SystemClock_Config(void)
 {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
   HAL_StatusTypeDef ret = HAL_OK;
 
   /* Enable HSE Oscillator and activate PLL with HSE as source */
@@ -61,9 +60,9 @@ static void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 400;
+  RCC_OscInitStruct.PLL.PLLN = 432;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 8;
+  RCC_OscInitStruct.PLL.PLLQ = 9;
 
   ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
   if(ret != HAL_OK)
@@ -78,6 +77,18 @@ static void SystemClock_Config(void)
     while(1) { ; }
   }
 
+  /* Select PLLSAI output as USB clock source */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48;
+  PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLLSAIP;
+  PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
+  PeriphClkInitStruct.PLLSAI.PLLSAIQ = 4;
+  PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV4;
+  ret = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+  if(ret != HAL_OK)
+  {
+    while(1) { ; }
+  }
+
   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -85,7 +96,7 @@ static void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_6);
+  ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);
   if(ret != HAL_OK)
   {
     while(1) { ; }
@@ -142,8 +153,8 @@ void StartThread(void *arg)
 	xTaskCreate(LedTask, "SCENE_TASK", 250, NULL, 3, NULL);
 	xTaskCreate(ethernetif_set_link, "ETH_TASK", 1000, &gnetif, 3, NULL);
 	//xTaskCreate(tcp_echo_socket, "TCP_ECHO_TASK", 1000, NULL, 6, NULL);
-	//xTaskCreate(udp_echo_socket, "UDP_ECHO_TASK", 1000, NULL, 6, NULL);
-	xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
+	xTaskCreate(udp_echo_socket, "UDP_ECHO_TASK", 2000, NULL, 6, NULL);
+	//xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
 
 
 
