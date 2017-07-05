@@ -9,10 +9,10 @@
 / Additional user header to be used  
 /-----------------------------------------------------------------------------*/
 /* Replace 'stm32xxx' with the STM32 Serie used, ex: stm32f4xx_hal.h */
-#include "stm32f7xx_hal.h" 
+#include "stm32f7xx_hal.h"
 
-/* If uSD is used, then include the uSD BSP header file. 
-   Replace 'stm32xxx' with your EVAL board name, ex: stm324x9i_eval_sd.h 
+/* If uSD is used, then include the uSD BSP header file.
+   Replace 'stm32xxx' with your EVAL board name, ex: stm324x9i_eval_sd.h
    */
 #ifndef _FS_SD_CARD
 #  ifdef USE_SD_CARD
@@ -25,7 +25,7 @@
 #  ifdef SD_CARD_HEADER
 #    include SD_CARD_HEADER
 #  else
-#    include "stm32xxx_eval_sd.h"
+#    include "stm32746g_discovery_sd.h"
 #  endif
 #endif
 
@@ -43,7 +43,7 @@
 #include "usbh_msc.h"
 /* hUSBH to be updated with the USBH handle defined in the application code */
 #define  HOST_HANDLE   hUSBH
-#endif 
+#endif
 
 /*---------------------------------------------------------------------------/
 / Functions and Buffer Configurations
@@ -113,7 +113,7 @@
 /  before being processed by the DMA . Otherwise (DMA not used), this define must
 /  be set to 1 to avoid Data alignment and improve the performance.
 /  Please note that if _USE_BUFF_WO_ALIGNMENT is set to 1 and an unaligned 32bits
-/  buffer is forwarded to the FatFs Write/Read functions, an error will be returned. 
+/  buffer is forwarded to the FatFs Write/Read functions, an error will be returned.
 /  (0: default value or 1: unaligned buffer return an error). */
 
 
@@ -153,7 +153,7 @@
 /   1    - ASCII (No extended character. Valid for only non-LFN configuration.) */
 
 
-#define	_USE_LFN                3
+#define	_USE_LFN                0
 #define	_MAX_LFN                255  /* Maximum LFN length to handle (12 to 255) */
 /* The _USE_LFN option switches the LFN feature.
 /
@@ -263,7 +263,7 @@
 /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR.
 /  When timestamp feature is enabled (_FS_NORTC	== 0), get_fattime() function need
 /  to be added to the project to read current time form RTC. _NORTC_MON,
-/  _NORTC_MDAY and _NORTC_YEAR have no effect. 
+/  _NORTC_MDAY and _NORTC_YEAR have no effect.
 /  These options have no effect at read-only configuration (_FS_READONLY == 1). */
 
 
@@ -281,7 +281,7 @@
 
 #ifndef _FS_REENTRANT
 #  ifdef USE_RTOS_SYSTICK
-#    define	_FS_REENTRANT		1
+#    define	_FS_REENTRANT		0
 #  else
 #    define	_FS_REENTRANT		0
 #  endif

@@ -153,7 +153,7 @@ static int rtp_hdr_decode(struct rtp_header *hdr, const uint8_t *buf, int size)
 
 
 enum { MAX_PACKET_LEN = 20 };   ///< [ms]
-int16_t samples[44100*MAX_PACKET_LEN/1000];   ///< 20 ms worth of data for G.722
+//int16_t samples[44100*MAX_PACKET_LEN/1000];   ///< 20 ms worth of data for G.722
 
 uint32_t tick = 0;
 uint32_t sampleCnt = 0;
@@ -184,14 +184,19 @@ void rtp_receive(uint8_t *data, unsigned int len) {
         	if(!tick)
         		tick = HAL_GetTick();
 
-        	sampleCnt += (payload_len/4);
+        	sampleCnt += (payload_len/2);
 
-        	for(i = 0; i < payload_len/4; i++)
+        	//__disable_irq();
+        	for(i = 0; i < payload_len/2; i++)
         	{
-        		samples[i] = ntohs(ptr[2*i]);
+        	//	samples[i] = ntohs(ptr[2*i]);
+        		uint16_t tempSample = (ntohs(ptr[i]));
+     //   		uint16_t tempSample = ((ptr[i])) + 32332;
+        		jbuf_put(tempSample);
         	}
+        	//__enable_irq();
 
-        	UartPort_Printf(DEBUG_LVL_INFO, "Data rate: %u\n", (sampleCnt*100)/(HAL_GetTick() - tick));
+        //	UartPort_Printf(DEBUG_LVL_INFO, "Data rate: %u\n", (sampleCnt*100)/(HAL_GetTick() - tick));
         }
         jbuf_eop();
     } else {

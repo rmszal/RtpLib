@@ -1,6 +1,8 @@
 #include "jbuf.h"
 #include "utils.h"
 
+#include "stm32f746xx.h"
+
 //#define LOCAL_DEBUG
 #ifdef LOCAL_DEBUG
 #	define TRACE(args) (printf("JB: "), printf args)
@@ -9,10 +11,10 @@
 #endif
 #	define MSG(args) (printf("JB: "), printf args)
 
-static short buffer[JBUF_FRAME_SIZE*100];
+static uint16_t buffer[JBUF_FRAME_SIZE*15];
 /** Number of samples to collect before starting playing (on start on buffer underrun).
  */
-static const int PREFETCH_SIZE = JBUF_FRAME_SIZE*8;
+static const int PREFETCH_SIZE = JBUF_FRAME_SIZE*7;
 static short zero_frame[JBUF_FRAME_SIZE] = {0};
 static int buffer_wr_pos = 0;
 static int buffer_rd_pos = 0;
@@ -25,16 +27,18 @@ enum JbufState {
     JbufPlaying
 } jbufState = JbufIdle;
 
-int jbuf_put(short sample) {
+int jbuf_put(uint16_t sample) {
     if (reset_req) {
         return 0;
     }
+    __disable_irq();
     int new_wr_pos = buffer_wr_pos + 1;
     if (new_wr_pos >= sizeof(buffer)/sizeof(buffer[0])) {
         new_wr_pos = 0;
     }
     if (new_wr_pos == buffer_rd_pos) {
         overflow_cnt++;
+        __enable_irq();
         return -1;
     } else {
         buffer[buffer_wr_pos] = sample;
@@ -43,6 +47,7 @@ int jbuf_put(short sample) {
             jbufState = JbufBuffering;
             TRACE(("Buffering\n"));
         }
+        __enable_irq();
         return 0;
     }
 }
@@ -54,7 +59,7 @@ void jbuf_eop(void) {
     }
 }
 
-short* jbuf_get(void) {
+uint16_t* jbuf_get(void) {
     int available;
     if (buffer_wr_pos >= buffer_rd_pos) {
         available = buffer_wr_pos - buffer_rd_pos;
@@ -120,6 +125,7 @@ short* jbuf_get(void) {
             }
         }
     #endif // LOCAL_DEBUG
+        UartPort_WriteString("Buff empty\n");
         return zero_frame;
     }
 }
