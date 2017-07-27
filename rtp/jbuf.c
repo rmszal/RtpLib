@@ -11,10 +11,10 @@
 #endif
 #	define MSG(args) (printf("JB: "), printf args)
 
-static uint16_t buffer[JBUF_FRAME_SIZE*15];
+static int16_t buffer[JBUF_FRAME_SIZE*30];
 /** Number of samples to collect before starting playing (on start on buffer underrun).
  */
-static const int PREFETCH_SIZE = JBUF_FRAME_SIZE*7;
+static const int PREFETCH_SIZE = JBUF_FRAME_SIZE*5;
 static short zero_frame[JBUF_FRAME_SIZE] = {0};
 static int buffer_wr_pos = 0;
 static int buffer_rd_pos = 0;
@@ -27,7 +27,7 @@ enum JbufState {
     JbufPlaying
 } jbufState = JbufIdle;
 
-int jbuf_put(uint16_t sample) {
+int jbuf_put(int16_t sample) {
     if (reset_req) {
         return 0;
     }
@@ -59,7 +59,7 @@ void jbuf_eop(void) {
     }
 }
 
-uint16_t* jbuf_get(void) {
+int16_t* jbuf_get(void) {
     int available;
     if (buffer_wr_pos >= buffer_rd_pos) {
         available = buffer_wr_pos - buffer_rd_pos;

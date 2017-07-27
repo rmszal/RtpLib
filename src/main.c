@@ -23,8 +23,7 @@
 #include "tcpip.h"
 #include "lwip/sockets.h"
 #include "app_sockets.h"
-
-
+#include "audio_player.h"
 #include "jbuf.h"
 
 #include "sd_diskio.h"
@@ -35,9 +34,6 @@ SemaphoreHandle_t Netif_LinkSemaphore = NULL;
 /* Ethernet link thread Argument */
 struct link_str link_arg;
 extern struct netif gnetif;
-
-void FatFsThread(void *arg);
-void PlayTask(void *arg);
 
 /**
   * @brief  System Clock Configuration
@@ -162,36 +158,9 @@ void LedTask(void *arg);
 void StartThread(void *arg);
 void TcpInitResult(void *arg);
 
-__IO uint32_t uwVolume = 50;
-
-uint16_t samplesaudio[JBUF_FRAME_SIZE*2];
-
-void audio_test()
-{
-
-	  if (BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, uwVolume, 44100) == 0)
-	  {
-		  UartPort_WriteString("Audio OUT Init OK\n");
-	  }
-
-	  BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
-
-	  uint16_t i;
-	  for( i = 0; i < 11025; i++)
-	  {
-	//	  samplesaudio[2*i] = 32332 + 32000*sin((i*3141.5)/11024.0);
-	//	  samplesaudio[2*i+1] = 32332 + 32000*sin((i*3141.5)/11024.0);
-	  }
-
-	  if(BSP_AUDIO_OUT_Play(samplesaudio, sizeof(samplesaudio)) == AUDIO_OK)
-		  UartPort_WriteString("Audio Play OK\n");
-}
-
 FATFS SDFatFs;  /* File system object for SD card logical drive */
-FIL MyFile;     /* File object */
 char SDPath[4]; /* SD card logical drive path */
-FRESULT res;
-uint16_t bw;
+
 int main(void)
 {
 
@@ -200,31 +169,11 @@ int main(void)
 
 
 	SystemClock_Config();
-//	UartPort_Init();
+	UartPort_Init();
 
-//	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-	  /*##-1- Link the micro SD disk I/O driver ##################################*/
-	  if(FATFS_LinkDriver(&SD_Driver, SDPath) == 0)
-	  {
-	    /*##-2- Register the file system object to the FatFs module ##############*/
-	    if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 1) != FR_OK)
-	    {
-	    	while(1);
-	    }
-	  }
-	  else
-	  {
-		  while(1);
-	  }
-
-//	  if((res =f_open(&MyFile, filename, FA_CREATE_ALWAYS)) != FR_OK)
-//		  while(1);
-//	  res = f_close(&MyFile);
-
-
-
-	audio_test();
+	audio_player_init();
 
 	xTaskCreate(StartThread, "INIT_TASK", 250, NULL, 1, NULL);
 
@@ -237,7 +186,22 @@ int main(void)
 }
 
 
-void TcpSocketTask(void *arg);
+void FatFsInit(void)
+{
+	/*##-1- Link the micro SD disk I/O driver ##################################*/
+	if(FATFS_LinkDriver(&SD_Driver, SDPath) == 0)
+	{
+	    /*##-2- Register the file system object to the FatFs module ##############*/
+		if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 1) != FR_OK)
+	    {
+	    	while(1);
+	    }
+	}
+	else
+	{
+		while(1);
+	}
+}
 
 void StartThread(void *arg)
 {
@@ -250,13 +214,7 @@ void StartThread(void *arg)
 
 	xTaskCreate(LedTask, "SCENE_TASK", 250, NULL, 3, NULL);
 	xTaskCreate(ethernetif_set_link, "ETH_TASK", 1000, &gnetif, 3, NULL);
-	//xTaskCreate(tcp_echo_socket, "TCP_ECHO_TASK", 1000, NULL, 6, NULL);
 	xTaskCreate(udp_echo_socket, "UDP_ECHO_TASK", 2000, NULL, 6, NULL);
-	//xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
-	xTaskCreate(FatFsThread, "FATFS_TASK", 2000, NULL, 6, NULL);
-	xTaskCreate(PlayTask, "Play_TASK", 2000, NULL, 6, NULL);
-
-
 
 	while(1)
 	{
@@ -271,49 +229,12 @@ void TcpInitResult(void *arg)
 	UartPort_Printf(DEBUG_LVL_INFO, "TCP/IP stack initialized!\n");
 }
 
-void TcpSocketTask(void *arg)
-{
-	  int sock, newconn, size;
-	  struct sockaddr_in address, remotehost;
-
-	 /* create a TCP socket */
-	  if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-	  {
-	    return;
-	  }
-
-	  /* bind to port 80 at any interface */
-	  address.sin_family = AF_INET;
-	  address.sin_port = htons(5555);
-	  address.sin_addr.s_addr = INADDR_ANY;
-
-	  if (bind(sock, (struct sockaddr *)&address, sizeof (address)) < 0)
-	  {
-	    return;
-	  }
-
-	  /* listen for incoming connections (TCP listen backlog = 5) */
-	  listen(sock, 5);
-
-	  size = sizeof(remotehost);
-
-	  while (1)
-	  {
-	    newconn = accept(sock, (struct sockaddr *)&remotehost, (socklen_t *)&size);
-	  }
-}
-
-
 void LedTask(void *arg)
 {
 	BSP_LED_Init(LED_GREEN);
 
-
-
 	while(1)
 	{
-
-
 		vTaskDelay(500);
 		BSP_LED_Toggle(LED_GREEN);
 	}
@@ -321,179 +242,5 @@ void LedTask(void *arg)
 
 uint32_t samplesCntIrq = 0;
 
-uint32_t lasttick;
 
-volatile uint8_t buffReady = 0;
-volatile uint8_t buffReady1 = 0;
-volatile uint8_t buffReady2 = 0;
-
-/*------------------------------------------------------------------------------
-       Callbacks implementation:
-           the callbacks API are defined __weak in the stm32746g_discovery_audio.c file
-           and their implementation should be done the user code if they are needed.
-           Below some examples of callback implementations.
-  ----------------------------------------------------------------------------*/
-/**
-  * @brief  Manages the full Transfer complete event.
-  * @param  None
-  * @retval None
-  */
-void BSP_AUDIO_OUT_TransferComplete_CallBack(void)
-{
-//	UartPort_WriteString("Audio IRQ Full!\n");
-
-
-
-	uint16_t *ptr;
-	uint16_t i;
-
-	ptr = jbuf_get();
-
-	for(i = 0; i < JBUF_FRAME_SIZE; i++)
-	{
-		samplesCntIrq++;
-		samplesaudio[i+JBUF_FRAME_SIZE] = ptr[i];
-	}
-	buffReady = 1;
-	buffReady1 = 1;
-
-}
-
-/**
-  * @brief  Manages the DMA Half Transfer complete event.
-  * @param  None
-  * @retval None
-  */
-void BSP_AUDIO_OUT_HalfTransfer_CallBack(void)
-{
-//	UartPort_WriteString("Audio IRQ Half!\n");
-
-	uint16_t *ptr;
-	uint16_t i;
-
-	ptr = jbuf_get();
-
-	for(i = 0; i < JBUF_FRAME_SIZE; i++)
-	{
-		samplesCntIrq++;
-		samplesaudio[i] = ptr[i];
-	}
-	buffReady2 = 1;
-
-	//UartPort_Printf(DEBUG_LVL_INFO, "Stats: %u\n", (samplesCntIrq)/(HAL_GetTick()));
-	//UartPort_Printf(DEBUG_LVL_INFO, "Time: %u\n", HAL_GetTick() - lasttick);
-	//lasttick = HAL_GetTick();
-}
-
-uint16_t sdAudio[JBUF_FRAME_SIZE];
-
-/**
-  * @brief  Manages the DMA FIFO error event.
-  * @param  None
-  * @retval None
-  */
-void BSP_AUDIO_OUT_Error_CallBack(void)
-{
-	UartPort_WriteString("Audio Error!\n");
-}
-
-char filename[] = "SONG1.WAV";
-
-void PlayTask(void *arg)
-{
-	uint16_t bw;
-	static uint32_t filesize = 0;
-	  vTaskDelete(NULL);
-
-	if((res =f_open(&MyFile, filename, FA_OPEN_EXISTING | FA_READ)) != FR_OK)
-		  while(1);
-
-	f_read(&MyFile, sdAudio, sizeof(sdAudio), &bw);
-
-	  uint16_t j;
-
-	  for(j = 0; j < JBUF_FRAME_SIZE; j++)
-	  {
-		  samplesaudio[2*j] = ((int32_t )sdAudio[j]) + 32332;
-		  samplesaudio[2*j+1] = ((int32_t )sdAudio[j]) + 32332;
-	//	  samplesaudio[2*j] = sdAudio[j];
-	//	  samplesaudio[2*j+1] = sdAudio[j];
-	  }
-
-	while(1)
-	{
-
-		if(buffReady1)
-		{
-			buffReady1 = 0;
-			  for(j = JBUF_FRAME_SIZE/2; j < JBUF_FRAME_SIZE; j++)
-			  {
-				  samplesaudio[2*j] = ((int32_t )sdAudio[j]) + 32332;
-				  samplesaudio[2*j+1] = ((int32_t )sdAudio[j]) + 32332;
-			//	  samplesaudio[2*j] = sdAudio[j];
-			//	  samplesaudio[2*j+1] = sdAudio[j];
-				  }
-		}
-
-		if(buffReady2)
-		{
-			buffReady2 = 0;
-			res = f_read(&MyFile, sdAudio, sizeof(sdAudio), &bw);
-			if(res != FR_OK)
-				while(1);
-
-			  for(j = 0; j < JBUF_FRAME_SIZE/2; j++)
-			  {
-				  samplesaudio[2*j] = ((int32_t )sdAudio[j]) + 32332;
-				  samplesaudio[2*j+1] = ((int32_t )sdAudio[j]) + 32332;
-				//  samplesaudio[2*j] = sdAudio[j];
-				//  samplesaudio[2*j+1] = sdAudio[j];
-			  }
-		}
-
-		vTaskDelay(3);
-	}
-
-
-}
-
-void FatFsThread(void *arg)
-{
-	uint16_t bw;
-	static uint32_t filesize = 0;
-
-	if((res =f_open(&MyFile, filename, FA_CREATE_ALWAYS | FA_WRITE)) != FR_OK)
-		  while(1);
-	  if((res =f_write(&MyFile, samplesaudio, sizeof(samplesaudio), &bw)) != FR_OK)
-		  while(1);
-
-	  while(1)
-	  {
-		  if(buffReady)
-		  {
-			  uint16_t j;
-
-			  for(j = 0; j < JBUF_FRAME_SIZE; j++)
-			  {
-				  sdAudio[j] = ((int32_t )samplesaudio[2*j]);
-			  }
-
-			  buffReady = 0;
-			  if((res =f_write(&MyFile, sdAudio, sizeof(sdAudio), &bw)) != FR_OK)
-				  while(1);
-
-			  filesize += bw;
-
-			  if(filesize > 1024*1024*3)
-			  {
-					vTaskSuspendAll();
-				  f_close(&MyFile);
-				  xTaskResumeAll();
-				  vTaskDelete(NULL);
-			  }
-		  }
-
-		  vTaskDelay(5);
-	  }
-}
 

@@ -189,14 +189,10 @@ void rtp_receive(uint8_t *data, unsigned int len) {
         	//__disable_irq();
         	for(i = 0; i < payload_len/2; i++)
         	{
-        	//	samples[i] = ntohs(ptr[2*i]);
-        		uint16_t tempSample = (ntohs(ptr[i]));
-     //   		uint16_t tempSample = ((ptr[i])) + 32332;
+        		int16_t tempSample = (ntohs(ptr[i]));
         		jbuf_put(tempSample);
         	}
         	//__enable_irq();
-
-        //	UartPort_Printf(DEBUG_LVL_INFO, "Data rate: %u\n", (sampleCnt*100)/(HAL_GetTick() - tick));
         }
         jbuf_eop();
     } else {

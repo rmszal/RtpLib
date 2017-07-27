@@ -5,13 +5,13 @@
 
 enum {
     /** 50 ms data at 44.1ksps */
-    JBUF_FRAME_SIZE = 4410
+    JBUF_FRAME_SIZE = 441
 };
 
 /** \return non-zero on overflow */
-int jbuf_put(uint16_t sample);
+int jbuf_put(int16_t sample);
 /** \brief Mark End-Of-Packet */
 void jbuf_eop(void);
-uint16_t* jbuf_get(void);
+int16_t* jbuf_get(void);
 
 #endif
