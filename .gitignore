@@ -1,6 +1,7 @@
 *Debug/*
 *HAL_Driver/*
-*/FreeRTOS/*
-*/FatFs/*
+*/FreeRTOS*
+*/FatFs*
 *CMSIS/*
 *Utilities/*
+/Debug/

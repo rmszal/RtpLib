@@ -21,8 +21,6 @@
 #include "lwip/sockets.h"
 #include "app_sockets.h"
 
-#include "Rtp_Exemple_Receive.h"
-
 static volatile uint8_t stackInitialized = 0;
 SemaphoreHandle_t Netif_LinkSemaphore = NULL;
 /* Ethernet link thread Argument */
@@ -143,7 +141,7 @@ void StartThread(void *arg)
 	xTaskCreate(ethernetif_set_link, "ETH_TASK", 1000, &gnetif, 3, NULL);
 	//xTaskCreate(tcp_echo_socket, "TCP_ECHO_TASK", 1000, NULL, 6, NULL);
 	//xTaskCreate(udp_echo_socket, "UDP_ECHO_TASK", 1000, NULL, 6, NULL);
-	xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
+	//xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
 
 
 
@@ -197,11 +195,40 @@ void LedTask(void *arg)
 {
 	BSP_LED_Init(LED_GREEN);
 
+	// turn off time stamp IRQ
+	ETH->MACIMR |= ETH_MACIMR_TSTIM;
 
+	// enable time stamping
+	ETH->PTPTSCR |= ETH_PTPTSCR_TSE;
+
+	ETH->PTPTSCR |= ETH_PTPTSSR_TSSSR;
+
+	ETH->PTPTSCR |= ETH_PTPTSCR_TSFCU;
+
+	// program subsecond register
+	ETH->PTPSSIR = 10;
+
+	// program addend register
+	ETH->PTPTSAR = 1 << 31;
+	ETH->PTPTSCR |= ETH_PTPTSCR_TSARU;
+
+	while(ETH->PTPTSCR & ETH_PTPTSCR_TSARU);
+
+	ETH->PTPTSCR |= ETH_PTPTSCR_TSSTU;
+
+	// program time stamp high and low update registers
+	ETH->PTPTSHUR = 666;
+	ETH->PTPTSLUR = 0;
+
+	// set timestamp init bit
+	ETH->PTPTSCR |= ETH_PTPTSCR_TSSTI;
+
+	//
 
 	while(1)
 	{
 
+		UartPort_Printf(DEBUG_LVL_INFO, "Seconds register: %u!\n", ETH->PTPTSHR);
 
 		vTaskDelay(500);
 		BSP_LED_Toggle(LED_GREEN);

@@ -22,66 +22,71 @@
 							<option id="fr.ac6.managedbuild.option.gnu.cross.fpu.1028341678" name="Floating point hardware" superClass="fr.ac6.managedbuild.option.gnu.cross.fpu" value="fr.ac6.managedbuild.option.gnu.cross.fpu.fpv5-sp-d16" valueType="enumerated"/>
 							<option id="fr.ac6.managedbuild.option.gnu.cross.floatabi.460252519" name="Floating-point ABI" superClass="fr.ac6.managedbuild.option.gnu.cross.floatabi" value="fr.ac6.managedbuild.option.gnu.cross.floatabi.hard" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="fr.ac6.managedbuild.targetPlatform.gnu.cross.175742621" isAbstract="false" osList="all" superClass="fr.ac6.managedbuild.targetPlatform.gnu.cross"/>
-							<builder buildPath="${workspace_loc:/RtpPort}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.934929320" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="fr.ac6.managedbuild.builder.gnu.cross"/>
+							<builder buildPath="${workspace_loc:/RtpPort}/Debug" id="fr.ac6.managedbuild.builder.gnu.cross.934929320" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="fr.ac6.managedbuild.builder.gnu.cross">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Release"/>
+								</outputEntries>
+							</builder>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.c.compiler.531930499" name="MCU GCC Compiler" superClass="fr.ac6.managedbuild.tool.gnu.cross.c.compiler">
 								<option id="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level.762182573" name="Optimization Level" superClass="fr.ac6.managedbuild.gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.debugging.level.118295583" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.2074093636" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/rtp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/device&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/HAL_Driver/Inc/Legacy&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/HAL_Driver/Inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FatFs/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FatFs/src/drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/doc/doxygen&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/apps/httpd&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/apps/snmp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip/apps&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip/priv&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif/ppp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif/ppp/polarssl&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/posix&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/posix/sys&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/arch&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/noOS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/OS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/core&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/dhcp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/etharp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/tcp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/udp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ampire480272&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ampire640480&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/Common&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/exc7200&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ft5336&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ft6x06&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/mfxstm32l152&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/mx25l512&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/n25q128a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/n25q512a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/otm8009a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ov9655&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/rk043fn48h&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/s5k5cag&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/st7735&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/stmpe811&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ts3510&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/wm8994&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Fonts&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Log&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/STM32746G-Discovery&quot;"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/inc"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/rtp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/CMSIS/core"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/CMSIS/device"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FatFs/src"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FatFs/src/drivers"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/include"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/doc/doxygen"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/apps/httpd"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/apps/snmp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif/ppp/polarssl"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/posix"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/posix/sys"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/arch"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/noOS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/OS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/core"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/dhcp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/etharp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/tcp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/udp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ampire480272"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ampire640480"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/Common"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/exc7200"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ft5336"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ft6x06"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/mfxstm32l152"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/mx25l512"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/n25q128a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/n25q512a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/otm8009a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ov9655"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/rk043fn48h"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/s5k5cag"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/st7735"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/stmpe811"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ts3510"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/wm8994"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Fonts"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Log"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/STM32746G-Discovery"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.960366060" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="STM32F746G_DISCO"/>
@@ -113,58 +118,61 @@
 							<tool id="fr.ac6.managedbuild.tool.gnu.archiver.620931494" name="MCU GCC Archiver" superClass="fr.ac6.managedbuild.tool.gnu.archiver"/>
 							<tool id="fr.ac6.managedbuild.tool.gnu.cross.assembler.332670139" name="MCU GCC Assembler" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler">
 								<option id="gnu.both.asm.option.include.paths.2077506159" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/core&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/CMSIS/device&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/HAL_Driver/Inc/Legacy&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/HAL_Driver/Inc&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FatFs/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FatFs/src/drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/doc/doxygen&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/apps/httpd&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/apps/snmp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip/apps&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/lwip/priv&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif/ppp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/netif/ppp/polarssl&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/posix&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/src/include/posix/sys&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/arch&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/noOS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/system/OS&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/core&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/dhcp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/etharp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/tcp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Middlewares/Third_Party/LwIP/test/unit/udp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ampire480272&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ampire640480&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/Common&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/exc7200&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ft5336&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ft6x06&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/mfxstm32l152&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/mx25l512&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/n25q128a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/n25q512a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/otm8009a&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ov9655&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/rk043fn48h&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/s5k5cag&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/st7735&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/stmpe811&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/ts3510&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Components/wm8994&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Fonts&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/Log&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Utilities/STM32746G-Discovery&quot;"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/inc"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/rtp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/CMSIS/core"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/CMSIS/device"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FatFs/src"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FatFs/src/drivers"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/include"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/doc/doxygen"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/apps/httpd"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/apps/snmp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip/apps"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/lwip/priv"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif/ppp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/netif/ppp/polarssl"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/posix"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/src/include/posix/sys"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/arch"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/noOS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system/OS"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/core"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/dhcp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/etharp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/tcp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/test/unit/udp"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ampire480272"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ampire640480"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/Common"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/exc7200"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ft5336"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ft6x06"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/mfxstm32l152"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/mx25l512"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/n25q128a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/n25q512a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/otm8009a"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ov9655"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/rk043fn48h"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/s5k5cag"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/st7735"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/stmpe811"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/ts3510"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Components/wm8994"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Fonts"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Log"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/STM32746G-Discovery"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1552048348" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="fr.ac6.managedbuild.tool.gnu.cross.assembler.input.1320980154" superClass="fr.ac6.managedbuild.tool.gnu.cross.assembler.input"/>
@@ -172,11 +180,10 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Src/stm32f7xx_hal_timebase_tim_template.c|Src/stm32f7xx_hal_timebase_rtc_wakeup_template.c|Src/stm32f7xx_hal_timebase_rtc_alarm_template.c|Src/stm32f7xx_hal_msp_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="HAL_Driver"/>
-						<entry excluding="Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_3.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Third_Party/FatFs/src/option/ccsbcs.c|Third_Party/FatFs/src/option/cc950.c|Third_Party/FatFs/src/option/cc949.c|Third_Party/FatFs/src/option/cc936.c|Third_Party/FatFs/src/option/cc932.c|Third_Party/FatFs/doc/img/app4.c|Third_Party/FatFs/doc/img/app3.c|Third_Party/FatFs/doc/img/app2.c|Third_Party/FatFs/doc/img/app1.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
+						<entry excluding="Src/stm32f7xx_hal_timebase_rtc_wakeup_template.c|Src/stm32f7xx_hal_msp_template.c|Src/stm32f7xx_hal_timebase_tim_template.c|Src/stm32f7xx_hal_timebase_rtc_alarm_template.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="HAL_Driver"/>
+						<entry excluding="Third_Party/FatFs/src/option/cc932.c|Third_Party/FatFs/src/option/cc936.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Third_Party/FatFs/doc/img/app1.c|Third_Party/FatFs/src/option/cc950.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Third_Party/FatFs/doc/img/app4.c|Third_Party/FatFs/doc/img/app3.c|Third_Party/FatFs/src/option/cc949.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_3.c|Third_Party/FatFs/doc/img/app2.c|Third_Party/FatFs/src/option/ccsbcs.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry excluding="Fonts" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Utilities"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rtp"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
@@ -352,7 +359,6 @@
 						<entry excluding="Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_3.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Third_Party/FatFs/src/option/ccsbcs.c|Third_Party/FatFs/src/option/cc950.c|Third_Party/FatFs/src/option/cc949.c|Third_Party/FatFs/src/option/cc936.c|Third_Party/FatFs/src/option/cc932.c|Third_Party/FatFs/doc/img/app4.c|Third_Party/FatFs/doc/img/app3.c|Third_Party/FatFs/doc/img/app2.c|Third_Party/FatFs/doc/img/app1.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry excluding="Fonts" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Utilities"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="rtp"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
