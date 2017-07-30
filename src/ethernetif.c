@@ -232,8 +232,10 @@ static void low_level_init(struct netif *netif)
   /* Accept broadcast address and ARP traffic */
   netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_IGMP;
 
+#ifdef LWIP_PTP
   /* Enable PTP Timestamping */
   ETH_PTPStart(ETH_PTP_FineUpdate);
+#endif
 
   /* create a binary semaphore used for informing ethernetif of frame reception */
   osSemaphoreDef(SEM);
@@ -273,7 +275,9 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
   uint32_t bufferoffset = 0;
   uint32_t byteslefttocopy = 0;
   uint32_t payloadoffset = 0;
-	ETH_TimeStamp timeStamp;
+#ifdef LWIP_PTP
+  ETH_TimeStamp timeStamp;
+#endif
 
   DmaTxDesc = EthHandle.TxDesc;
   bufferoffset = 0;
@@ -323,9 +327,16 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
   }
   
   /* Prepare transmit descriptors to give to DMA */ 
- // HAL_ETH_TransmitFrame(&EthHandle, framelength);
-
+#ifdef LWIP_PTP
   HAL_ETH_TransmitFrame_TimeStamp(&EthHandle, framelength, &timeStamp);
+
+	/* Fill in the time stamp information. */
+	p->time_sec = timeStamp.TimeStampHigh;
+	p->time_nsec = ETH_PTPSubSecond2NanoSecond(timeStamp.TimeStampLow);
+
+#else
+  HAL_ETH_TransmitFrame(&EthHandle, framelength);
+#endif
   
 //  UartPort_Printf(DEBUG_LVL_INFO, "Out time: %u\n", timeStamp.TimeStampHigh);
 
@@ -410,6 +421,14 @@ static struct pbuf * low_level_input(struct netif *netif)
       // Get PTP time stamp
 
     }
+
+#ifdef LWIP_PTP
+	{
+		p->time_sec = EthHandle.RxFrameInfos.LSRxDesc->TimeStampHigh;
+		p->time_nsec = ETH_PTPSubSecond2NanoSecond(EthHandle.RxFrameInfos.LSRxDesc->TimeStampLow);
+	}
+#endif
+
   }
     
   /* Release descriptors to DMA */

@@ -46,6 +46,8 @@ typedef osSemaphoreId sys_mutex_t;
 typedef osMessageQId  sys_mbox_t;
 typedef osThreadId    sys_thread_t;
 
+typedef osTimerId     sys_timer_t;
+
 typedef struct _sys_arch_state_t
 {
 	// Task creation data.

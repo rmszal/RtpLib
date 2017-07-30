@@ -1,6 +1,7 @@
 /* net.c */
 
 #include "../ptpd.h"
+#include "lwip/ip_addr.h"
 
 /* Initialize network queue. */
 static void netQInit(BufQueue *queue)
@@ -82,9 +83,9 @@ static bool netQCheck(BufQueue  *queue)
 }
 
 /* Shut down  the UDP and network stuff */
-bool netShutdown(NetPath *netPath)
+uint8_t netShutdown(NetPath *netPath)
 {
-	struct ip_addr multicastAaddr;
+	ip_addr_t multicastAaddr;
 
 	DBG("netShutdown\n");
 
@@ -130,7 +131,7 @@ static int32_t findIface(const octet_t *ifaceName, octet_t *uuid, NetPath *netPa
 
 /* Process an incoming message on the Event port. */
 static void netRecvEventCallback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
-																 struct ip_addr *addr, u16_t port)
+																  ip_addr_t *addr, u16_t port)
 {
 	NetPath *netPath = (NetPath *) arg;
 
@@ -148,7 +149,7 @@ static void netRecvEventCallback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
 
 /* Process an incoming message on the General port. */
 static void netRecvGeneralCallback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
-																	 struct ip_addr *addr, u16_t port)
+																	  ip_addr_t *addr, u16_t port)
 {
 	NetPath *netPath = (NetPath *) arg;
 
@@ -165,10 +166,10 @@ static void netRecvGeneralCallback(void *arg, struct udp_pcb *pcb, struct pbuf *
 }
 
 /* Start  all of the UDP stuff */
-bool netInit(NetPath *netPath, PtpClock *ptpClock)
+uint8_t netInit(NetPath *netPath, PtpClock *ptpClock)
 {
 	struct in_addr netAddr;
-	struct ip_addr interfaceAddr;
+	ip_addr_t interfaceAddr;
 	char addrStr[NET_ADDRESS_LENGTH];
 
 	DBG("netInit\n");
@@ -303,7 +304,7 @@ static ssize_t netRecv(octet_t *buf, TimeInternal *time, BufQueue *msgQueue)
 
 	if (time != NULL)
 	{
-#if LWIP_PTP
+#ifdef LWIP_PTP
 		time->seconds = p->time_sec;
 		time->nanoseconds = p->time_nsec;
 #else
@@ -378,7 +379,7 @@ static ssize_t netSend(const octet_t *buf, int16_t  length, TimeInternal *time, 
 
 	if (time != NULL)
 	{
-#if LWIP_PTP
+#ifdef LWIP_PTP
 		time->seconds = p->time_sec;
 		time->nanoseconds = p->time_nsec;
 #else

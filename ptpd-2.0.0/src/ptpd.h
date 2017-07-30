@@ -30,10 +30,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <stm32f4xx.h>
-#include <stm32f4x7_eth.h>
+#include <stm32f7xx.h>
+#include <stm32f746_eth_driver.h>
 #include <limits.h>
-#include "main.h"
 #include "cmsis_os.h"
 #include "lwip/opt.h"
 #include "lwip/api.h"
@@ -42,7 +41,8 @@
 #include "lwip/udp.h"
 #include "lwip/igmp.h"
 #include "lwip/arch.h"
-#include "lwip/timers.h"
+#include "lwip/lwip_timers.h"
+#include "lwip/ip_addr.h"
 #include "ethernetif.h"
 
 #include "constants.h"

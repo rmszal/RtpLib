@@ -33,6 +33,8 @@
 								<option id="gnu.c.compiler.option.debugging.level.118295583" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.2074093636" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/inc"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/ptpd-2.0.0/src"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/ptpd-2.0.0/src/dep"/>
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/rtp"/>
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Middlewares/Third_Party/LwIP/system"/>
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/CMSIS/core"/>
@@ -87,9 +89,12 @@
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/Log"/>
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities"/>
 									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/Utilities/STM32746G-Discovery"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/ptpd-2.0.0/src"/>
+									<listOptionValue builtIn="false" value="D:/Projekty/PXM/AC6/RtpPort/ptpd-2.0.0/src/dep"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.960366060" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="STM32F746G_DISCO"/>
+									<listOptionValue builtIn="false" value="LWIP_PTP"/>
 									<listOptionValue builtIn="false" value="LWIP_DHCP=1"/>
 									<listOptionValue builtIn="false" value="USE_DHCP"/>
 									<listOptionValue builtIn="false" value="USE_RTOS_SYSTICK"/>
@@ -184,6 +189,7 @@
 						<entry excluding="Third_Party/FatFs/src/option/cc932.c|Third_Party/FatFs/src/option/cc936.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c|Third_Party/FatFs/doc/img/app1.c|Third_Party/FatFs/src/option/cc950.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c|Third_Party/FatFs/doc/img/app4.c|Third_Party/FatFs/doc/img/app3.c|Third_Party/FatFs/src/option/cc949.c|Third_Party/FreeRTOS/Source/portable/MemMang/heap_3.c|Third_Party/FatFs/doc/img/app2.c|Third_Party/FatFs/src/option/ccsbcs.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry excluding="Fonts" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Utilities"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="ptpd-2.0.0"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>

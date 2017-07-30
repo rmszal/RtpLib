@@ -30,9 +30,14 @@ void initTimer(void)
 	/* Create the various timers used in the system. */
   for (i = 0; i < TIMER_ARRAY_SIZE; i++)
   {
+	  osTimerDef_t def;
+
+	  def.ptimer = timerCallback;
+
 		// Mark the timer as not expired.
 		// Initialize the timer.
-		sys_timer_new(&ptpdTimers[i], timerCallback, osTimerOnce, (void *) i);
+	  ptpdTimers[i] = osTimerCreate(&def, osTimerOnce, i);
+	//	sys_timer_new(&ptpdTimers[i], timerCallback, osTimerOnce, (void *) i);
 		ptpdTimersExpired[i] = FALSE;
 	}
 }
@@ -44,7 +49,8 @@ void timerStop(int32_t index)
 
 	// Cancel the timer and reset the expired flag.
 	DBGV("timerStop: stop timer %d\n", index);
-  sys_timer_stop(&ptpdTimers[index]);
+ // sys_timer_stop(&ptpdTimers[index]);
+  osTimerStop(ptpdTimers[index]);
 	ptpdTimersExpired[index] = FALSE;
 }
 
@@ -56,7 +62,8 @@ void timerStart(int32_t index, uint32_t interval_ms)
 	// Set the timer duration and start the timer.
 	DBGV("timerStart: set timer %d to %d\n", index, interval_ms);
 	ptpdTimersExpired[index] = FALSE;
-  sys_timer_start(&ptpdTimers[index], interval_ms);
+//  sys_timer_start(&ptpdTimers[index], interval_ms);
+  osTimerStart(ptpdTimers[index], interval_ms);
 }
 
 bool timerExpired(int32_t index)

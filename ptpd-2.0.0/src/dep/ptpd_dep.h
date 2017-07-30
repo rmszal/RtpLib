@@ -117,8 +117,8 @@ int16_t msgPackManagementResponse(const PtpClock*,  octet_t*, MsgHeader*, const 
  * -Init network stuff, send and receive datas */
 /**\{*/
 
-bool  netInit(NetPath*, PtpClock*);
-bool  netShutdown(NetPath*);
+uint8_t  netInit(NetPath*, PtpClock*);
+uint8_t  netShutdown(NetPath*);
 int32_t netSelect(NetPath*, const TimeInternal*);
 ssize_t netRecvEvent(NetPath*, octet_t*, TimeInternal*);
 ssize_t netRecvGeneral(NetPath*, octet_t*, TimeInternal*);

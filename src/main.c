@@ -143,7 +143,9 @@ void StartThread(void *arg)
 	xTaskCreate(udp_echo_socket, "UDP_ECHO_TASK", 1000, NULL, 6, NULL);
 	//xTaskCreate(rtp_socket, "UDP_ECHO_TASK", 3000, NULL, 6, NULL);
 
-
+#ifdef LWIP_PTP
+	ptpd_init();
+#endif
 
 	while(1)
 	{
