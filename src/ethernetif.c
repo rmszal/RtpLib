@@ -52,6 +52,7 @@
 #include "netif/etharp.h"
 #include "ethernetif.h"
 #include <string.h>
+#include "stm32f746_eth_driver.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -231,6 +232,9 @@ static void low_level_init(struct netif *netif)
   /* Accept broadcast address and ARP traffic */
   netif->flags |= NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_IGMP;
 
+  /* Enable PTP Timestamping */
+  ETH_PTPStart(ETH_PTP_FineUpdate);
+
   /* create a binary semaphore used for informing ethernetif of frame reception */
   osSemaphoreDef(SEM);
   s_xSemaphore = osSemaphoreCreate(osSemaphore(SEM) , 1 );
@@ -269,6 +273,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
   uint32_t bufferoffset = 0;
   uint32_t byteslefttocopy = 0;
   uint32_t payloadoffset = 0;
+	ETH_TimeStamp timeStamp;
 
   DmaTxDesc = EthHandle.TxDesc;
   bufferoffset = 0;
@@ -318,8 +323,12 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
   }
   
   /* Prepare transmit descriptors to give to DMA */ 
-  HAL_ETH_TransmitFrame(&EthHandle, framelength);
+ // HAL_ETH_TransmitFrame(&EthHandle, framelength);
+
+  HAL_ETH_TransmitFrame_TimeStamp(&EthHandle, framelength, &timeStamp);
   
+//  UartPort_Printf(DEBUG_LVL_INFO, "Out time: %u\n", timeStamp.TimeStampHigh);
+
   errval = ERR_OK;
   
 error:
@@ -397,6 +406,9 @@ static struct pbuf * low_level_input(struct netif *netif)
       /* Copy remaining data in pbuf */
       memcpy( (uint8_t*)((uint8_t*)q->payload + payloadoffset), (uint8_t*)((uint8_t*)buffer + bufferoffset), byteslefttocopy);
       bufferoffset = bufferoffset + byteslefttocopy;
+
+      // Get PTP time stamp
+
     }
   }
     
@@ -421,6 +433,9 @@ static struct pbuf * low_level_input(struct netif *netif)
     /* Resume DMA reception */
     EthHandle.Instance->DMARPDR = 0;
   }
+
+ // UartPort_Printf(DEBUG_LVL_INFO, "In time: %u\n", EthHandle.RxFrameInfos.LSRxDesc->TimeStampHigh);
+
   return p;
 }
 
